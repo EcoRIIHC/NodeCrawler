@@ -1,0 +1,27 @@
+{
+  "name": "node-crawler",
+  "version": "1.0.0",
+  "description": "NodeJs crawler exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EcoRIIHC/NodeCrawler.git"
+  },
+  "author": "HC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EcoRIIHC/NodeCrawler/issues"
+  },
+  "homepage": "https://github.com/EcoRIIHC/NodeCrawler#readme",
+  "dependencies": {
+    "async": "^2.4.1",
+    "big-integer": "^1.6.23",
+    "cheerio": "^1.0.0-rc.1",
+    "crypto": "0.0.3",
+    "request": "^2.81.0",
+    "superagent": "^3.5.2"
+  }
+}
