@@ -43,10 +43,10 @@ superagent
             playList.push(tmp)
         })
         console.log('get song list .....done')
-        // playList.forEach((item, i) => {
-        //     getSongs(item)
-        // })
-        getSongs(playList[0])
+        playList.forEach((item, i) => {
+            getSongs(item)
+        })
+        // getSongs(playList[1])
     })
 // 根据播列表id获取下面的歌曲ids
 const getSongs = (item) => {
@@ -65,14 +65,14 @@ const getSongs = (item) => {
                 songList.push(tmp)
             })
             console.log('获取播放列表' + item.title + '下的歌曲')
-            songList.forEach((item, i) => {
-                getSongHref (item)
+            songList.forEach((value, i) => {
+                getSongHref (value, item.title)
             })
         })
 }
 
 // 获取歌曲下载地址
-const getSongHref = (item) => {
+const getSongHref = (item, playlistTitle) => {
     superagent
         .post(songHrefUrl)
         .send(crypto.aesRsaEncrypt(JSON.stringify({
@@ -94,16 +94,26 @@ const getSongHref = (item) => {
             }
             songHref.push(tmp)
 
-            download(tmp)
+            download(tmp, playlistTitle)
 
             console.log(tmp)
         })
 }
 
 // 下载歌曲
-const download = (item) => {
-    item.name = item.name.replace(/\//g, '-')
-    request(item.url).pipe(fs.createWriteStream(songDir + item.name + '.mp3'))
+const download = (item, playlistTitle) => {
+    item.name = item.name
+        .replace(/\//g, '-')
+        .replace(/[:：|『』]/g, '-')
+    playlistTitle = playlistTitle
+        .replace(/\//g, '-')
+        .replace(/[:：|]/g, '-')
+
+    if (!fs.existsSync(songDir + playlistTitle)) {
+        fs.mkdirSync(songDir + playlistTitle)
+    }
+
+    request(item.url).pipe(fs.createWriteStream(songDir + playlistTitle + '/' + item.name + '.mp3'))
 }
 
 // 下载歌曲原生版本，原生的http.request没法下载重定向后的文件，先使用request代替了
