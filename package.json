@@ -21,6 +21,7 @@
     "big-integer": "^1.6.23",
     "cheerio": "^1.0.0-rc.1",
     "crypto": "0.0.3",
+    "mysql": "^2.13.0",
     "request": "^2.81.0",
     "superagent": "^3.5.2"
   }
